@@ -32,7 +32,7 @@ public class BoardServiceTests {
 		assertNotNull(service);
 	}*/
 	
-/*	@Test
+	@Test
 	public void testRegister(){
 		BoardVO board = new BoardVO();
 		board.setBoard_title("새로 작성하는eeeee 글 ");
@@ -42,12 +42,12 @@ public class BoardServiceTests {
 		service.register(board);
 		
 		log.info("생성된 게시물의 번호 : " + board.getBoard_num());
-	}*/
+	}
 	
-	@Test
+	/*@Test
 	public void testGetList(){
 		service.getList().forEach(board -> log.info(board));
-	}
+	}*/
 	
 	
 //	@Test 

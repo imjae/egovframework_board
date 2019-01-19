@@ -1,14 +1,16 @@
 package egovframework.example.board.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.board.domain.BoardVO;
 import egovframework.example.board.service.BoardService;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -16,48 +18,49 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class BoardController {
 	
+	@Setter(onMethod_ = @Autowired)
 	private BoardService service;
 	
 	public BoardController(){
 		
 	}
 	
-	
-	@RequestMapping(value="/welcome.do")
+	@RequestMapping(value="firstPage.do")
 	public ModelAndView welcome(){
-		ModelAndView modelAndView = new ModelAndView("board/welcome");
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
 		return modelAndView;
 	}
+	 
+
 	
-	@RequestMapping(value="/list.do")
+	
+	@RequestMapping(value="/board/list.do")
 	public ModelAndView list(){
 		ModelAndView modelAndView = new ModelAndView("board/list");
+		log.info("list");
+		modelAndView.addObject("list", service.getList());
 		
 		return modelAndView;
 	}
 	
-	/*
-	@RequestMapping(value="/list")
-	public void list(Model model){
-		log.info("list");
-		model.addAttribute("list", service.getList());
-	}
-	
-/*
-	@RequestMapping(value="/register.do")
-	public String register(BoardVO board, RedirectAttributes rttr){
+
+	@RequestMapping(value="/board/register.do", method=RequestMethod.GET)
+	public ModelAndView register(BoardVO board){
 		
+		ModelAndView modelAndView = new ModelAndView("board/list");
+		
+		board.setBoard_title("test용 제목");
+		board.setBoard_writer("test writer");
+		board.setBoard_content("test contents ss");
 		log.info("register : " + board);
 		
 		service.register(board);
 		
-		rttr.addFlashAttribute("result", board.getBoard_num());
-		
-		return "rediret:/board/list";
+		return modelAndView;
 	}
 	
-	@RequestMapping(value="/modify")
+	@RequestMapping(value="/board/modify.do")
 	public String modify(BoardVO board, RedirectAttributes rttr){
 		log.info("modify : " + board);
 		
@@ -69,7 +72,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@RequestMapping(value="/remove")
+	@RequestMapping(value="/board/remove.do")
 	public String remove(@RequestParam("board_num") Long board_num, RedirectAttributes rttr){
 		log.info("remove.... " + board_num);
 		
@@ -78,6 +81,6 @@ public class BoardController {
 		}
 		
 		return "redirect:/board/list";
-	}*/
-	
+	}
+
 }

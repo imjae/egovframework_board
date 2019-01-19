@@ -3,13 +3,14 @@ select * FROM temp_board;
 DROP TABLE temp_board;
 
 CREATE TABLE temp_board(
-board_num NUMBER PRIMARY KEY,
+board_num NUMBER,
 board_writer VARCHAR2(40),
 board_title VARCHAR2(100),
 board_content VARCHAR2(2000),
 board_hit NUMBER DEFAULT 0,
 board_reg_date DATE,
 board_update_date DATE);
+
 
 ALTER TABLE temp_board
 DROP COLUMN board_hit;

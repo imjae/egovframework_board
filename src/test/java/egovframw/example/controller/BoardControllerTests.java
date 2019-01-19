@@ -35,6 +35,7 @@ public class BoardControllerTests {
 	
 	@Before
 	public void setup(){
+		
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
@@ -50,11 +51,10 @@ public class BoardControllerTests {
 	@Test
 	public void testRegister() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register.do")
-				.param("title", "테스트 새글 제목")
-				.param("content", "테스트 새글 내용")
-				.param("writer", "user00")
+				.param("board_title", "dddddd테스트 새글 제목")
+				.param("board_content", "dddddd테스트 새글 내용")
+				.param("board_writer", "dduser00")
 				).andReturn().getModelAndView().getViewName();
-		
 		log.info(resultPage);
 	}
 }
