@@ -30,22 +30,41 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/user/signUpForm.do")
-	public ModelAndView signUp(){
-		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+	@RequestMapping(value="/user/login.do")
+	public ModelAndView login(HttpServletRequest request){
 
-		modelAndView.addObject("index","1");
-		modelAndView.addObject("mainPageUrl","../login/signUp.jsp");
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/user/signUpForm.do")
-	public ModelAndView signUp(){
+	public ModelAndView signUpForm(){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 
 		modelAndView.addObject("index","1");
-		modelAndView.addObject("mainPageUrl","../login/signUp.jsp");
+		modelAndView.addObject("mainPageUrl","../login/signUpForm.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/user/signUp.do", method = RequestMethod.POST)
+	public ModelAndView signUp( HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		UserVO vo = new UserVO();
+		vo.setUser_email(email);
+		vo.setUser_password(password);
+		
+		userService.userSignUp(vo);
+	
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("vo", vo);
+		modelAndView.addObject("mainPageUrl","../login/signUpResult.jsp");
 		
 		return modelAndView;
 	}
@@ -55,8 +74,19 @@ public class LoginController {
 	public String userIdCheck(HttpServletRequest request) {
 
 		String id = request.getParameter("id");
-		int count = userService.userEmailCheck(id);
-
+		
+		UserVO vo = new UserVO();
+		vo.setUser_email(id);
+		
+		
+		vo = userService.userEmailCheck(vo);
+		int count = 0;
+		if(vo == null){
+			
+		}else{
+			count = 1;
+		}
+		
 		return String.valueOf(count);
 	}
 
@@ -68,8 +98,8 @@ public class LoginController {
 		String pw = request.getParameter("pw");
 
 		UserVO vo = new UserVO();
-		vo.setEmail(id);
-		vo.setPassword(pw);
+		vo.setUser_email(id);
+		vo.setUser_password(pw);
 
 		String result = "";
 
@@ -84,30 +114,28 @@ public class LoginController {
 		return result;
 	}
 
-	@RequestMapping(value = "/user/userIdPwCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value="/user/userIdPwCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userIdPwCheck(HttpServletRequest request) {
+		
 
-		String id = request.getParameter("id");
-		String password = request.getParameter("pw");
+		String id = request.getParameter("email");
+		String password = request.getParameter("password");
 
-		System.out.println(id + "," + password);
+		System.out.println(id + "," + password + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		
+		UserVO tmp_vo = new UserVO();
+		tmp_vo.setUser_email(id);
 
-		int email_count = userService.userEmailCheck(id);
-		int pw_count = userService.userPwCheck(password);
+		UserVO vo = userService.userEmailCheck(tmp_vo);
 
-		int qwert = email_count + pw_count;
-		System.out.println(qwert);
+		if(password.equals(vo.getUser_password())){
 
-		String result = "";
-
-		if (qwert >= 2) {
-			result = "O";
-		} else {
-			result = "X";
+			return "O";
+		}else{
+			return "X";
 		}
 
-		return result;
 	}
 	
 	

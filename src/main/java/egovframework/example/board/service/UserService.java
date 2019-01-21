@@ -10,9 +10,9 @@ public interface UserService {
 	int userSignUp(UserVO UserVO);
 	
 	
-	int userEmailCheck(String user_email);
+	UserVO userEmailCheck(UserVO vo);
 	
-	int userPwCheck(String user_password);
+	UserVO userPwCheck(UserVO vo);
 	
 	
 	UserVO findEmailPwSelect(UserVO UserVO);

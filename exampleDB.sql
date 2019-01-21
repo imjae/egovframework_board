@@ -43,3 +43,12 @@ user_num NUMBER,
 user_email VARCHAR2(60),
 user_password VARCHAR2(30)
 );
+
+select * FROM tb_user;
+WHERE user_email
+
+CREATE SEQUENCE seq_tb_user_user_num;
+
+INSERT INTO tb_user
+VALUE(seq_tb_user_user_num.nextVal, 'jakeim1111@gmail.com', 'qwer1234!');
+

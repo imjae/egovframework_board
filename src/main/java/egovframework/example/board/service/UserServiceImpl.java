@@ -1,47 +1,49 @@
 package egovframework.example.board.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.board.domain.UserVO;
+import egovframework.example.board.mapper.UserMapper;
+import lombok.Setter;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserMapper mapper;
+	
+	
 	@Override
-	public UserVO userLogin(UserVO UserVO) {
+	public UserVO userLogin(UserVO userVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int userSignUp(UserVO UserVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int userSignUp(UserVO userVO) {
+		return mapper.userSignUp(userVO);
 	}
 
 	@Override
-	public int userEmailCheck(String user_email) {
-		// TODO Auto-generated method stub
-		return 0;
+	public UserVO userEmailCheck(UserVO vo) {
+		return mapper.userEmailCheck(vo);
 	}
 
 	@Override
-	public int userPwCheck(String user_password) {
-		// TODO Auto-generated method stub
-		return 0;
+	public UserVO userPwCheck(UserVO vo) {
+		return mapper.userPwCheck(vo);
 	}
 
 	@Override
-	public UserVO findEmailPwSelect(UserVO UserVO) {
+	public UserVO findEmailPwSelect(UserVO userVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public UserVO userEmailPwCheck(UserVO UserVO) {
+	public UserVO userEmailPwCheck(UserVO userVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}

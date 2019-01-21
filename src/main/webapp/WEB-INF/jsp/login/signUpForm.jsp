@@ -123,8 +123,7 @@ select {
 
 		$("div#user_id input[type=text]").focus();
 		// 이메일유효성 검사
-		$("div#user_id input[type=text]")
-				.focusout(
+		$("div#user_id input[type=text]").focusout(
 						function() {
 							// 정규식 - 이메일 유효성 검사
 							var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -135,38 +134,34 @@ select {
 
 							var userid = user_mail.val();
 
-							$
-									.ajax({
-										async : true,
-										type : 'POST',
-										data : {
-											"id" : $(
-													"div#user_id input[type=text]")
-													.val()
-										},
-										url : "userIdCheck.do",
-										success : function(data) {
-											if (data != '0') {
-												//아이디가 존제할 경우 빨깡으로 , 아니면 파랑으로 처리하는 디자인
+							$.ajax({
+									async : true,
+									type : 'POST',
+									data : {
+										"id" : $(
+												"div#user_id input[type=text]")
+												.val()
+									},
+									url : "/user/userIdCheck.do",
+									success : function(data) {
+										if (data != '0') {
+											//아이디가 존제할 경우 빨깡으로 , 아니면 파랑으로 처리하는 디자인
+											$("label#email_check").css(
+													"color", "red");
+											$("label#email_check")
+													.html("&nbsp; X 아이디가 존재합니다.. TT _ TT");
+
+											return false;
+										} else {
+											if (!userid) {
 												$("label#email_check").css(
 														"color", "red");
 												$("label#email_check")
 														.html(
-																"&nbsp; X 아이디가 존재합니다.. TT _ TT");
-
+																"&nbsp; X 이메일을 입력해 주세요. TT _ TT");
 												return false;
 											} else {
-												if (!userid) {
-													$("label#email_check").css(
-															"color", "red");
-													$("label#email_check")
-															.html(
-																	"&nbsp; X 이메일을 입력해 주세요. TT _ TT");
-													return false;
-												} else {
-													if (!regEmail
-															.test(user_mail
-																	.val())) {
+												if (!regEmail.test(user_mail.val())) {
 														$("label#email_check")
 																.css("color",
 																		"red");
@@ -283,7 +278,7 @@ select {
 
 </head>
 <body>
-
+<br>
 	<div class="row" >
 		<div class="col-lg-12">
 			<div class="panel panel-default">
@@ -301,7 +296,7 @@ select {
 						<div id="user_id">
 							<div class="left_col">E-Mail</div>
 							<div class="right_col">
-								<input type="text" name="user_id"><br>
+								<input type="text" id="user_email" name="email"><br>
 								<br> <label id="email_check">이메일 형식에 맞게 입력해주세요.</label>
 							</div>
 						</div>
@@ -309,13 +304,13 @@ select {
 						<div id="user_password">
 							<div class="left_col">비밀번호</div>
 							<div class="right_col">
-								<input type="password" name="user_password" id="user_password"><br>
+								<input type="password" name="password" id="user_password"><br>
 								<br> <label id="password_check"></label>
 							</div>
 						</div>
 
 						<div id="user_re_password">
-							<div class="left_col">비밀번호 재확인</div>
+							<div class="left_col">비밀번호 확인</div>
 							<div class="right_col">
 								<input type="password" name="user_re_password"
 									id="user_re_password"><br>
