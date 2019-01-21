@@ -6,7 +6,7 @@ import egovframework.example.board.domain.BoardVO;
 
 public interface BoardService {
 
-	public void register(BoardVO board);
+	public int register(BoardVO board);
 	
 	public BoardVO get(Long bno);
 	

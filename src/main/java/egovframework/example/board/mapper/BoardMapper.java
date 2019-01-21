@@ -10,7 +10,7 @@ public interface BoardMapper {
 	//@Select("select * from temp_board where board_num > 0")
 	public List<BoardVO> getList();
 	
-	public void insert(BoardVO board);
+	public int insert(BoardVO board);
 	
 	public void insertSelectKey(BoardVO board);
 	

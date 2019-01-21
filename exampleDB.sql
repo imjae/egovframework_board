@@ -36,3 +36,10 @@ SELECT seq_temp_board_num.nextval FROM dual;
 SELECT seq_temp_board_num.nextval FROM dual;
 DELETE temp_board WHERE board_num = 4;
 COMMIT;
+
+
+CREATE TABLE tb_user(
+user_num NUMBER,
+user_email VARCHAR2(60),
+user_password VARCHAR2(30)
+);

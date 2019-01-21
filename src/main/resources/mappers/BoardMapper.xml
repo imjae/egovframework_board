@@ -8,13 +8,15 @@
 	<select id="getList" resultType="egovframework.example.board.domain.BoardVO">
 		<![CDATA[
 			select * FROM temp_board where board_num > 0
+			ORDER BY board_num
+			
 		]]>
 	</select>
 
 	<insert id="insert">
-		INSERT INTO temp_board(board_num, board_title, board_content, board_writer)
+		INSERT INTO temp_board(board_num, board_title, board_content, board_writer,board_reg_date, board_update_date)
 		VALUES
-		(seq_temp_board_num.nextVal, #{board_title}, #{board_content}, #{board_writer})
+		(seq_temp_board_num.nextVal, #{board_title}, #{board_content}, #{board_writer}, sysdate, sysdate)
 	</insert>
 	
 	<insert id="insertSelectKey">

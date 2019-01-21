@@ -25,38 +25,54 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping(value="firstPage.do")
+	@RequestMapping(value="/firstPage.do")
 	public ModelAndView welcome(){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
-		
+
+		modelAndView.addObject("list", service.getList());
 		return modelAndView;
 	}
-	 
 
 	
 	
 	@RequestMapping(value="/board/list.do")
 	public ModelAndView list(){
-		ModelAndView modelAndView = new ModelAndView("board/list");
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		log.info("list");
 		modelAndView.addObject("list", service.getList());
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("mainPageUrl","../board/list.jsp");
 		
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/board/registerForm.do", method=RequestMethod.GET)
+	public ModelAndView registerForm(BoardVO board){
+		
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+		
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("mainPageUrl","../board/registerForm.jsp");
+		return modelAndView;
+	}
+	
 
-	@RequestMapping(value="/board/register.do", method=RequestMethod.GET)
+	@RequestMapping(value="/board/register.do", method=RequestMethod.POST)
 	public ModelAndView register(BoardVO board){
+
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
-		ModelAndView modelAndView = new ModelAndView("board/list");
-		
-		board.setBoard_title("test용 제목");
-		board.setBoard_writer("test writer");
-		board.setBoard_content("test contents ss");
+		System.out.println(board.getBoard_title());
+		System.out.println(board.getBoard_content());
 		log.info("register : " + board);
 		
-		service.register(board);
+		board.setBoard_writer("test Writer");
 		
+		int num = service.register(board);
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("checkNum", num);
+		modelAndView.addObject("mainPageUrl","../board/registerResult.jsp");
 		return modelAndView;
 	}
 	

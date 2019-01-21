@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
+<title>게시판 만들기 (SB Admin v2.o0)</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="/resources/vendor/bootstrap/css/bootstrap.min.css"
@@ -61,7 +61,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+				<a class="navbar-brand" href="index.html">게시판 만들기 (SB Admin v2.o0)</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -255,13 +255,22 @@
 								</span>
 							</div> <!-- /input-group -->
 						</li>
+						<li><a href="/user/signUpForm.do"><i class="fa fa-edit fa-fw"></i>
+								 - 회 원 가 입 -</a></li>
 						<li><a href="/loginForm.do"><i class="fa fa-files-o fa-fw"></i>
-								Login Pages</a>
+								  - 로 그 인 -</a>
 							 <!-- /.nav-second-level --></li>
+						<li><a href="/board/list.do"><i class="fa fa-bar-chart-o fa-fw"></i>
+								  - 게 시 판 -<span class="fa arrow"></span></a>
+								  <ul class="nav nav-second-level">
+								<li><a href="/board/list.do">전체 게시판</a></li>
+								<li><a href="flot.html">게시판1</a></li>
+								<li><a href="flot.html">게시판2</a></li>
+								<li><a href="flot.html">게시판3</a></li>
+							</ul></li>
 							 
 							 
-							 
-						<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
+					<!-- 	<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
 								Dashboard</a></li>
 								
 								
@@ -271,9 +280,8 @@
 							<ul class="nav nav-second-level">
 								<li><a href="flot.html">Flot Charts</a></li>
 								<li><a href="morris.html">Morris.js Charts</a></li>
-							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
-								Tables</a></li>
+							</ul> /.nav-second-level</li>
+						
 						<li><a href="forms.html"><i class="fa fa-edit fa-fw"></i>
 								Forms</a></li>
 						<li><a href="#"><i class="fa fa-wrench fa-fw"></i> UI
@@ -285,7 +293,7 @@
 								<li><a href="typography.html">Typography</a></li>
 								<li><a href="icons.html"> Icons</a></li>
 								<li><a href="grid.html">Grid</a></li>
-							</ul> <!-- /.nav-second-level --></li>
+							</ul> /.nav-second-level</li>
 						<li><a href="#"><i class="fa fa-sitemap fa-fw"></i>
 								Multi-Level Dropdown<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
@@ -297,14 +305,14 @@
 										<li><a href="#">Third Level Item</a></li>
 										<li><a href="#">Third Level Item</a></li>
 										<li><a href="#">Third Level Item</a></li>
-									</ul> <!-- /.nav-third-level --></li>
-							</ul> <!-- /.nav-second-level --></li>
+									</ul> /.nav-third-level</li>
+							</ul> /.nav-second-level</li>
 						<li><a href="#"><i class="fa fa-files-o fa-fw"></i>
 								Sample Pages<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="blank.html">Blank Page</a></li>
 								<li><a href="login.html">Login Page</a></li>
-							</ul> <!-- /.nav-second-level --></li>
+							</ul> /.nav-second-level</li> -->
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->

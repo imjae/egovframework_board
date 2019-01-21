@@ -39,9 +39,9 @@ public class BoardServiceTests {
 		board.setBoard_content("새로 작성하는 내eeeeeee용");
 		board.setBoard_writer("new bieeeeeeeeeeeeeee");
 		
-		service.register(board);
+		int a = service.register(board);
 		
-		log.info("생성된 게시물의 번호 : " + board.getBoard_num());
+		log.info("게시글이 작성이 되었을까아아ㅏㅏ : " + a);
 	}
 	
 	/*@Test
