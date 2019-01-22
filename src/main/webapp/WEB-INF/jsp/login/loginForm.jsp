@@ -41,9 +41,6 @@
 		$('div.panel-body a').click(function(){
 			var email = $("input[type=email]").val();
 			var password = $("input[type=password]").val();
-			alert(email);
-			alert(password);
-			
 
 			$.ajax({
 				async : true,
@@ -54,9 +51,8 @@
 				},
 				url : "/user/userIdPwCheck.do",
 				success : function(data) {
-					alert(data);
 					if (data == 'O') {
-						alert("로그인 성공");
+						alert("로그인 성공!");
 						document.location.href="/loginSuccess.do?email="+email;
 						return true;
 					} else {

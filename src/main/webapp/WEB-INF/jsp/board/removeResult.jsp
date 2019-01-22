@@ -12,10 +12,10 @@
 			<div class="panel-heading"> </div>
 			
 			<div class="panel-body">
-					<c:if test="${removeCheck }">
+					<c:if test="${removeCheck == 'true'}">
 						게시글 삭제 성공
 					</c:if>
-					<c:if test="${removeCheck }">
+					<c:if test="${removeCheck != 'true' }">
 						게시글 삭제 실패
 					</c:if>
 					<br><br>

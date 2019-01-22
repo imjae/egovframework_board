@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.board.domain.BoardVO;
+import egovframework.example.board.domain.Criteria;
 import egovframework.example.board.mapper.BoardMapper;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import lombok.AllArgsConstructor;
@@ -51,10 +52,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criteria cri) {
 		log.info("get List................... " );
 		
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
 	}
 	
 

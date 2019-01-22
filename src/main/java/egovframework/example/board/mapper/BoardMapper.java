@@ -2,13 +2,14 @@ package egovframework.example.board.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
-
 import egovframework.example.board.domain.BoardVO;
+import egovframework.example.board.domain.Criteria;
 
 public interface BoardMapper {
 	//@Select("select * from temp_board where board_num > 0")
 	public List<BoardVO> getList();
+	
+	public List<BoardVO> getListWithPaging(Criteria cri);
 	
 	public int insert(BoardVO board);
 	

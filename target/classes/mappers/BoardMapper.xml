@@ -15,6 +15,18 @@
             		ORDER BY rownum DESC
 		]]>
 	</select>
+	
+	<select id="getListWithPaging" resultType="egovframework.example.board.domain.BoardVO">
+		<![CDATA[
+			SELECT rownum, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+			FROM (SELECT /* +INDEX_DESC(temp_baord pk_bpard */
+					rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+				FROM temp_board
+				WHERE rownum <= #{pageNum} * #{amount}
+				) 
+			WHERE rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
 
 	<insert id="insert">
 		INSERT INTO temp_board(board_num, board_title, board_content, board_writer,board_reg_date, board_update_date)

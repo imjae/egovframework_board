@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import egovframework.example.board.domain.Criteria;
 import egovframework.example.board.domain.UserVO;
 import egovframework.example.board.service.BoardService;
 import egovframework.example.board.service.UserService;
@@ -28,13 +29,13 @@ public class LoginController {
 	private BoardService boardService;
 
 	@RequestMapping(value="/logout.do")
-	public ModelAndView logout(HttpServletRequest request){
+	public ModelAndView logout(HttpServletRequest request, Criteria cri){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute("sessionEmail");
 		
-		modelAndView.addObject("list",boardService.getList());
+		modelAndView.addObject("list",boardService.getList(cri));
 		
 		return modelAndView;
 	}
@@ -48,21 +49,20 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/loginSuccess.do")
-	public ModelAndView loginSuc(HttpServletRequest request){
+	public ModelAndView loginSuc(HttpServletRequest request, Criteria cri){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 
 		HttpSession loginSession;
 		loginSession = request.getSession();
 		loginSession.setAttribute("sessionEmail", request.getParameter("email"));
 		
-		modelAndView.addObject("list",boardService.getList());
+		modelAndView.addObject("list",boardService.getList(cri));
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/user/login.do")
 	public ModelAndView login(HttpServletRequest request){
-
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
 		return modelAndView;
@@ -159,14 +159,19 @@ public class LoginController {
 
 		UserVO vo = userService.userEmailCheck(tmp_vo);
 		
-		String getPassword = vo.getUser_password()+"";
-
-		if(password.equals(getPassword)){
-
-			return "O";
-		}else{
+		if(vo == null){
 			return "X";
+		}else {
+			String getPassword = vo.getUser_password()+"";
+
+			if(password.equals(getPassword)){
+
+				return "O";
+			}else{
+				return "X";
+			}
 		}
+		
 
 	}
 	

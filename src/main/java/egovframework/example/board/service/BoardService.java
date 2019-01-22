@@ -3,6 +3,7 @@ package egovframework.example.board.service;
 import java.util.List;
 
 import egovframework.example.board.domain.BoardVO;
+import egovframework.example.board.domain.Criteria;
 
 public interface BoardService {
 
@@ -14,6 +15,8 @@ public interface BoardService {
 	
 	public boolean remove(Long bno);
 	
-	public List<BoardVO> getList();
+	//public List<BoardVO> getList();
+	
+	public List<BoardVO> getList(Criteria cri);
 	
 }

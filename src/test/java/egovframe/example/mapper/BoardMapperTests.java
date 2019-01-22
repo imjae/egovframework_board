@@ -1,5 +1,7 @@
 package egovframe.example.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import egovframework.example.board.domain.BoardVO;
+import egovframework.example.board.domain.Criteria;
 import egovframework.example.board.mapper.BoardMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -35,10 +38,10 @@ public class BoardMapperTests {
 		log.info(board);
 	}*/
 	
-	@Test
+	/*@Test
 	public void testGetList(){
 		mapper.getList().forEach(board->log.info(board));
-	}
+	}*/
 	
 	/*@Test
 	public void testRead(){
@@ -64,5 +67,16 @@ public class BoardMapperTests {
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT : " + count);
 	}*/
+	
+	@Test
+	public void testPagine(){
+		Criteria cri = new Criteria();
+		
+		cri.setPageNum(2);
+		cri.setAmount(10);
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		list.forEach(board -> log.info(board));
+	}
 	
 }

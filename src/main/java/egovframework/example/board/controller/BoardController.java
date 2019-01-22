@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.board.domain.BoardVO;
+import egovframework.example.board.domain.Criteria;
+import egovframework.example.board.domain.PageDTO;
 import egovframework.example.board.service.BoardService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -28,21 +29,24 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/firstPage.do")
-	public ModelAndView welcome(){
+	public ModelAndView welcome(Criteria cri){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 
-		modelAndView.addObject("list", service.getList());
+		modelAndView.addObject("list", service.getList(cri));
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("pageMaker", new PageDTO(cri, 123));
+		modelAndView.addObject("mainPageUrl","../board/list.jsp");
+		
 		return modelAndView;
 	}
 
 	
 	
 	@RequestMapping(value="/board/list.do")
-	public ModelAndView list(){
+	public ModelAndView list(Criteria cri){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
-		log.info("list");
-		modelAndView.addObject("list", service.getList());
-		modelAndView.addObject("index","1");
+		modelAndView.addObject("list", service.getList(cri));
+		modelAndView.addObject("pageMaker", new PageDTO(cri, 123));
 		modelAndView.addObject("mainPageUrl","../board/list.jsp");
 		
 		return modelAndView;

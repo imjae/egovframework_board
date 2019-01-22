@@ -63,7 +63,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">게시판 만들기 (SB Admin v2.o0)</a>
+				<a class="navbar-brand" href="/firstPage.do">게시판 만들기 (SB Admin v2.o0)</a>
 			</div>
 			<!-- /.navbar-header -->
 
