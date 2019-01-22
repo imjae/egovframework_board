@@ -45,10 +45,12 @@ user_password VARCHAR2(30)
 );
 
 select * FROM tb_user;
-WHERE user_email
+
 
 CREATE SEQUENCE seq_tb_user_user_num;
 
 INSERT INTO tb_user
-VALUE(seq_tb_user_user_num.nextVal, 'jakeim1111@gmail.com', 'qwer1234!');
+VALUES(seq_tb_user_user_num.nextVal, 'jakeim1111@gmail.com', 'qwer1234!');
+COMMIT;
 
+DELETE tb_user;
