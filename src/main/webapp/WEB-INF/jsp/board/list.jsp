@@ -31,8 +31,8 @@
 					
 					<c:forEach items="${list }" var="board">
 						<tr>
-							<td><c:out value="${board.board_num }" /> </td>
-							<td><c:out value="${board.board_title }" /> </td>
+							<td><c:out value="${board.rownum}" /> </td>
+							<td><a href="/board/read.do?bn=${board.board_num }"><c:out value="${board.board_title }" /></a> </td>
 							<td><c:out value="${board.board_writer }" /> </td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.board_reg_date }"/> </td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.board_update_date }"/> </td>
@@ -45,6 +45,14 @@
 			
 			</div>
 			
+			<c:if test="${sessionScope.sessionEmail == null }">
+			
+				<div class="navbar-brand" style="margin-left: 50px;">
+					로그인 해야 글 작성할수 있음.
+				</div>
+			</c:if>
+			
+			<c:if test="${sessionScope.sessionEmail != null }">
 			<div class="panel-foot">
 					<button type="submit" class="btn btn-default" 
 					style="margin-left: 15px; margin-bottom: 15px;"
@@ -53,6 +61,7 @@
 					글등록
 					</button>
 			</div>
+			</c:if>
 			
 			<!-- /.panel-body -->
 		</div>

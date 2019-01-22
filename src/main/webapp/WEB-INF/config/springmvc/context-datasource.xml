@@ -10,7 +10,7 @@
 		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property> -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.24:1521:orcl"/>
 		<property name="username" value="exampleDB"></property>
 		<property name="password" value="1234"></property>
 	</bean>

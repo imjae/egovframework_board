@@ -1,8 +1,10 @@
 package egovframework.example.board.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,15 +60,17 @@ public class BoardController {
 	
 
 	@RequestMapping(value="/board/register.do", method=RequestMethod.POST)
-	public ModelAndView register(BoardVO board){
+	public ModelAndView register(BoardVO board, HttpServletRequest request){
 
+		HttpSession session = request.getSession();
+		
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
 		System.out.println(board.getBoard_title());
 		System.out.println(board.getBoard_content());
 		log.info("register : " + board);
 		
-		board.setBoard_writer("test Writer");
+		board.setBoard_writer(String.valueOf(session.getAttribute("sessionEmail")));
 		
 		int num = service.register(board);
 
@@ -76,27 +80,74 @@ public class BoardController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/board/modify.do")
-	public String modify(BoardVO board, RedirectAttributes rttr){
-		log.info("modify : " + board);
+
+	@RequestMapping(value="/board/remove.do")
+	public ModelAndView remove(@RequestParam("bn") Long board_num){
+		log.info("remove.... " + board_num);
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
-		if(service.modify(board)){
-			rttr.addFlashAttribute("result" , "success");
-					
-		}
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("removeCheck",service.remove(board_num));
+		modelAndView.addObject("mainPageUrl","../board/removeResult.jsp");
 		
-		return "redirect:/board/list";
+		return modelAndView;
 	}
 	
-	@RequestMapping(value="/board/remove.do")
-	public String remove(@RequestParam("board_num") Long board_num, RedirectAttributes rttr){
-		log.info("remove.... " + board_num);
+	@RequestMapping(value="/board/read.do")
+	public ModelAndView readForm(HttpServletRequest request){
 		
-		if(service.remove(board_num)){
-			rttr.addFlashAttribute("result", "success");
-		}
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		
-		return "redirect:/board/list";
+		long board_num = Long.parseLong(request.getParameter("bn"));
+		
+		BoardVO vo = service.get(board_num);
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("boardVO", vo);
+		modelAndView.addObject("mainPageUrl","../board/readForm.jsp");
+		
+		return modelAndView;
+		
 	}
+	
+	@RequestMapping(value="/board/modifyForm.do")
+	public ModelAndView modifyForm(HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+		
+		long board_num = Long.parseLong(request.getParameter("bn"));
+		
+		BoardVO vo = service.get(board_num);
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("boardVO", vo);
+		modelAndView.addObject("mainPageUrl","../board/modifyForm.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/board/modify.do")
+	public ModelAndView modify(HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+		
+		long board_num = Long.parseLong(request.getParameter("bn"));
+		
+		BoardVO vo = service.get(board_num);
+		
+		String board_title = request.getParameter("board_title");
+		String board_content = request.getParameter("board_content");
+		
+		vo.setBoard_title(board_title);
+		vo.setBoard_content(board_content);
+		
+		boolean modifyStatus = service.modify(vo);
+
+		modelAndView.addObject("index","1");
+		modelAndView.addObject("modifyStatus", modifyStatus);
+		modelAndView.addObject("mainPageUrl","../board/modifyResult.jsp");
+		
+		return modelAndView;
+	}
+	
 
 }

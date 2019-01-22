@@ -1,5 +1,5 @@
 select * FROM temp_board;
-
+DESC temp_board;
 DROP TABLE temp_board;
 
 CREATE TABLE temp_board(
@@ -54,3 +54,8 @@ VALUES(seq_tb_user_user_num.nextVal, 'jakeim1111@gmail.com', 'qwer1234!');
 COMMIT;
 
 DELETE tb_user;
+
+SELECT b.rownum, a.board_title, a.board_writer, a.board_reg_date, a.board_update_date
+FROM temp_board a, (SELECT rownum 
+                    FROM temp_board) b
+ORDER BY rownum DESC;

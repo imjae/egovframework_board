@@ -7,9 +7,12 @@
 
 	<select id="getList" resultType="egovframework.example.board.domain.BoardVO">
 		<![CDATA[
-			select * FROM temp_board where board_num > 0
-			ORDER BY board_num
-			
+			SELECT *
+				FROM (SELECT rownum, tu.*
+      				FROM (SELECT * 
+            			FROM temp_board
+            			ORDER BY board_num asc) tu)
+            		ORDER BY rownum DESC
 		]]>
 	</select>
 
@@ -30,7 +33,12 @@
 	</insert>
 	
 	<select id="read" resultType="egovframework.example.board.domain.BoardVO">
-		SELECT * FROM temp_board WHERE board_num = #{board_num}
+		SELECT *
+			FROM (SELECT rownum, tu.*
+			      FROM (SELECT * 
+			            FROM temp_board
+			            ORDER BY board_num ASC) tu)
+			            WHERE board_num = #{board_num}
 	</select>
 	
 	<delete id="delete" >
