@@ -69,7 +69,7 @@
 
 			<c:if test="${sessionScope.sessionEmail == null }">
 				<div class="navbar-brand" style="float: right; margin-right: 100px;">
-					로그인해 주세요!
+					<a href="/loginForm.do">로그인해 주세요!</a>
 				</div>
 			</c:if>
 
