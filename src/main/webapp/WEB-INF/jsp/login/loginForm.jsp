@@ -43,6 +43,7 @@
 			var password = $("input[type=password]").val();
 			alert(email);
 			alert(password);
+			
 
 			$.ajax({
 				async : true,
@@ -56,10 +57,12 @@
 					alert(data);
 					if (data == 'O') {
 						alert("로그인 성공");
+						document.location.href="/loginSuccess.do?email="+email;
 						return true;
 					} else {
-						alert("로그인 실패");
-						return false;
+						alert("로그인 실패 \n 다시 로그인 해주세요.");
+						window.history.back();
+						return true;
 					}
 				},error : function(error) {
 					alert("error : " + error);

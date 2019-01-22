@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +67,13 @@
 			</div>
 			<!-- /.navbar-header -->
 
+			<c:if test="${sessionScope.sessionEmail == null }">
+				<div class="navbar-brand" style="float: right; margin-right: 100px;">
+					로그인해 주세요!
+				</div>
+			</c:if>
+
+			<c:if test="${sessionScope.sessionEmail != null }">
 			<ul class="nav navbar-top-links navbar-right">
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i
@@ -73,32 +82,29 @@
 					<ul class="dropdown-menu dropdown-messages">
 						<li><a href="#">
 								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
-										<em>Yesterday</em>
+									<strong>보낸사람이 나오는 곳 </strong> <span class="pull-right text-muted">
+										<em>Today</em>
 									</span>
 								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
+								<div>가나다라마바사</div>
 						</a></li>
 						<li class="divider"></li>
 						<li><a href="#">
 								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
+									<strong>보낸사람이 나오는 곳 </strong> <span class="pull-right text-muted">
 										<em>Yesterday</em>
 									</span>
 								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
+								<div>가나다라마바사....</div>
 						</a></li>
 						<li class="divider"></li>
 						<li><a href="#">
 								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
+									<strong>보낸사람이 나오는 곳 </strong> <span class="pull-right text-muted">
 										<em>Yesterday</em>
 									</span>
 								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
+								<div>가나다라마바사....</div>
 						</a></li>
 						<li class="divider"></li>
 						<li><a class="text-center" href="#"> <strong>Read
@@ -230,17 +236,21 @@
 						<i class="fa fa-caret-down"></i>
 				</a>
 					<ul class="dropdown-menu dropdown-user">
-						<li><a href="#"><i class="fa fa-user fa-fw"></i> User
-								Profile</a></li>
-						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+						<li><a href="#"><i class="fa fa-user fa-fw"></i>
+						${sessionScope.sessionEmail } 님 <br>&nbsp;&nbsp;&nbsp;&nbsp; 안녕하세요!
+						</a></li>
+						<li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
 						</li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
-								Logout</a></li>
+						<li><a href="/logout.do"><i class="fa fa-sign-out fa-fw"></i>
+								로그아웃!</a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->
 			</ul>
 			<!-- /.navbar-top-links -->
+			
+			
+			</c:if>
 
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">

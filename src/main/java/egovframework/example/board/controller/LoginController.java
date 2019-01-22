@@ -1,8 +1,10 @@
 package egovframework.example.board.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.example.board.domain.UserVO;
+import egovframework.example.board.service.BoardService;
 import egovframework.example.board.service.UserService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -20,12 +23,39 @@ public class LoginController {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
-
 	
+	@Setter(onMethod_ = @Autowired)
+	private BoardService boardService;
+
+	@RequestMapping(value="/logout.do")
+	public ModelAndView logout(HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("sessionEmail");
+		
+		modelAndView.addObject("list",boardService.getList());
+		
+		return modelAndView;
+	}
 	
 	@RequestMapping(value="/loginForm.do")
 	public ModelAndView loginForm(){
 		ModelAndView modelAndView = new ModelAndView("login/loginForm");
+		
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/loginSuccess.do")
+	public ModelAndView loginSuc(HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+
+		HttpSession loginSession;
+		loginSession = request.getSession();
+		loginSession.setAttribute("sessionEmail", request.getParameter("email"));
+		
+		modelAndView.addObject("list",boardService.getList());
 		
 		return modelAndView;
 	}
@@ -109,6 +139,8 @@ public class LoginController {
 			result = "X";
 		} else {
 			result = "O";
+			
+	
 		}
 
 		return result;
@@ -117,8 +149,6 @@ public class LoginController {
 	@RequestMapping(value="/user/userIdPwCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userIdPwCheck(HttpServletRequest request) {
-		
-
 		String id = request.getParameter("email");
 		String password = request.getParameter("password");
 
@@ -128,8 +158,10 @@ public class LoginController {
 		tmp_vo.setUser_email(id);
 
 		UserVO vo = userService.userEmailCheck(tmp_vo);
+		
+		String getPassword = vo.getUser_password()+"";
 
-		if(password.equals(vo.getUser_password())){
+		if(password.equals(getPassword)){
 
 			return "O";
 		}else{
