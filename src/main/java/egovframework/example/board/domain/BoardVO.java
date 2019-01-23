@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class BoardVO {
-	private int rownum;
+	private int rnrn;
+	private int rn;
 	private Long board_num;
 	private String board_writer;
 	private String board_title;

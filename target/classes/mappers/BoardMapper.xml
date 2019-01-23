@@ -8,23 +8,27 @@
 	<select id="getList" resultType="egovframework.example.board.domain.BoardVO">
 		<![CDATA[
 			SELECT *
-				FROM (SELECT rownum, tu.*
+				FROM (SELECT rownum rn, tu.*
       				FROM (SELECT * 
             			FROM temp_board
             			ORDER BY board_num asc) tu)
-            		ORDER BY rownum DESC
+            		ORDER BY rn DESC
 		]]>
 	</select>
 	
 	<select id="getListWithPaging" resultType="egovframework.example.board.domain.BoardVO">
 		<![CDATA[
-			SELECT rownum, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
-			FROM (SELECT /* +INDEX_DESC(temp_baord pk_bpard */
-					rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
-				FROM temp_board
-				WHERE rownum <= #{pageNum} * #{amount}
-				) 
-			WHERE rn > (#{pageNum} -1) * #{amount}
+		
+		SELECT rn, board_num, board_title, board_writer, board_reg_date, board_update_date
+FROM
+(SELECT /*+INDEX_DESC(temp_board pk_temp_board) */
+        rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+FROM temp_board
+WHERE rownum <= #{pageNum} * #{amount})
+WHERE rn > (#{pageNum}-1) * #{amount}
+
+
+	
 		]]>
 	</select>
 
@@ -46,7 +50,7 @@
 	
 	<select id="read" resultType="egovframework.example.board.domain.BoardVO">
 		SELECT *
-			FROM (SELECT rownum, tu.*
+			FROM (SELECT rownum rn, tu.*
 			      FROM (SELECT * 
 			            FROM temp_board
 			            ORDER BY board_num ASC) tu)
@@ -63,8 +67,13 @@
 		board_content = #{board_content},
 		board_writer = #{board_writer},
 		board_update_date = sysdate
-		WHERE board_num = #{board_num}
+		WHERE board_num = #{board_num} 
 	
 	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM temp_board
+		WHERE board_num > 0
+	</select>
 
 </mapper>

@@ -34,7 +34,9 @@ public class BoardController {
 
 		modelAndView.addObject("list", service.getList(cri));
 		modelAndView.addObject("index","1");
-		modelAndView.addObject("pageMaker", new PageDTO(cri, 123));
+		int total = service.getTotal(cri);
+		
+		modelAndView.addObject("pageMaker", new PageDTO(cri, total));
 		modelAndView.addObject("mainPageUrl","../board/list.jsp");
 		
 		return modelAndView;
@@ -46,7 +48,10 @@ public class BoardController {
 	public ModelAndView list(Criteria cri){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
 		modelAndView.addObject("list", service.getList(cri));
-		modelAndView.addObject("pageMaker", new PageDTO(cri, 123));
+		
+		int total = service.getTotal(cri);
+		
+		modelAndView.addObject("pageMaker", new PageDTO(cri, total));
 		modelAndView.addObject("mainPageUrl","../board/list.jsp");
 		
 		return modelAndView;

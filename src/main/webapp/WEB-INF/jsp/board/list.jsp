@@ -44,7 +44,7 @@
 					
 					<c:forEach items="${list }" var="board">
 						<tr>
-							<td><c:out value="${board.rownum}" /> </td>
+							<td><c:out value="${board.rn}" /> </td>
 							<td><a href="/board/read.do?bn=${board.board_num }"><c:out value="${board.board_title }" /></a> </td>
 							<td><c:out value="${board.board_writer }" /> </td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.board_reg_date }"/> </td>

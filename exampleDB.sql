@@ -59,3 +59,81 @@ SELECT b.rownum, a.board_title, a.board_writer, a.board_reg_date, a.board_update
 FROM temp_board a, (SELECT rownum 
                     FROM temp_board) b
 ORDER BY rownum DESC;
+
+
+SELECT rownum, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+			FROM (SELECT /* +INDEX_DESC(temp_baord pk_bpard */
+					rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+				FROM temp_board
+				WHERE rownum <= 10
+				) 
+			WHERE rn > 0;
+
+SELECT *
+FROM (SELECT rownum rn, tu.*
+      FROM (SELECT * 
+            FROM temp_board
+            ORDER BY board_num asc) tu
+            )
+WHERE rn BETWEEN 11 AND 20
+ORDER BY rownum DESC;
+                    
+
+SELECT rownum, tu.*
+FROM (SELECT * 
+      FROM temp_board
+      ORDER BY board_num asc) tu;
+WHERE rownum >10;
+
+SELECT *
+FROM(
+SELECT rownum rn, tt.* 
+FROM(
+SELECT * FROM temp_board
+ORDER BY board_num)tt)
+ORDER BY rn DESC);
+WHERE BETWEEN rn 1 AND 10;
+
+SELECT rownum rnrn, test.* 
+FROM(
+SELECT *
+FROM(
+SELECT rownum rn, tt.* 
+FROM(
+SELECT * FROM temp_board
+ORDER BY board_num)tt)
+ORDER BY rn DESC) test;
+WHERE rn BETWEEN 1 AND 10;
+
+
+SELECT * FROM (
+SELECT rownum rnrn, ttt.* 
+			FROM(
+				SELECT *
+				FROM(
+					SELECT rownum rn, tt.* 
+					FROM(
+						SELECT * FROM temp_board
+						ORDER BY board_num)tt)
+				ORDER BY rn DESC)ttt )
+WHERE rnrn BETWEEN 11 AND 20;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
