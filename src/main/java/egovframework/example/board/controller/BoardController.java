@@ -45,9 +45,15 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="/board/list.do")
-	public ModelAndView list(Criteria cri){
+	public ModelAndView list(Criteria cri, HttpServletRequest request){
 		ModelAndView modelAndView = new ModelAndView("main/mainPage");
+		
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+		
 		modelAndView.addObject("list", service.getList(cri));
+		
+		
 		
 		int total = service.getTotal(cri);
 		

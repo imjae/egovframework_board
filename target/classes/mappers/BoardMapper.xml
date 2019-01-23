@@ -20,15 +20,16 @@
 		<![CDATA[
 		
 		SELECT rn, board_num, board_title, board_writer, board_reg_date, board_update_date
-FROM
-(SELECT /*+INDEX_DESC(temp_board pk_temp_board) */
-        rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
-FROM temp_board
-WHERE rownum <= #{pageNum} * #{amount})
-WHERE rn > (#{pageNum}-1) * #{amount}
-
-
-	
+		FROM
+		(SELECT /*+INDEX_DESC(temp_board pk_temp_board) */
+		        rownum rn, board_num, board_title, board_content, board_writer, board_reg_date, board_update_date
+		FROM temp_board
+		WHERE 
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
 		]]>
 	</select>
 
@@ -73,7 +74,33 @@ WHERE rn > (#{pageNum}-1) * #{amount}
 	
 	<select id="getTotalCount" resultType="int">
 		SELECT count(*) FROM temp_board
-		WHERE board_num > 0
+		WHERE 
+		<include refid="criteria"></include>
+		board_num > 0
 	</select>
 
+
+
+
+
+		<sql id="criteria">
+			<trim prefix="(" suffix=") AND " prefixOverrides = "OR">
+				<foreach item='type' collection="typeArr">
+					<trim prefix="OR">
+						<choose>
+							<when test="type == 'T'.toString()">
+								title like '%' ||#{keyword} ||'%'
+							</when>
+							<when test="type == 'C'.toString()">
+								content like '%' ||#{keyword} ||'%'
+							</when>
+							<when test="type == 'W'.toString()">
+								writer like '%' ||#{keyword} ||'%'
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			
+			</trim> 
+		</sql>
 </mapper>
