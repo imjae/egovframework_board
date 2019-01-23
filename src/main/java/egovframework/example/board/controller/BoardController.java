@@ -41,7 +41,6 @@ public class BoardController {
 		
 		return modelAndView;
 	}
-
 	
 	
 	@RequestMapping(value="/board/list.do")
@@ -50,6 +49,10 @@ public class BoardController {
 		
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
+		
+		cri.setType(type);
+		cri.setKeyword(keyword);
+		
 		
 		modelAndView.addObject("list", service.getList(cri));
 		
